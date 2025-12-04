@@ -1,0 +1,55 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f5f7fa"/>
+
+  <!-- Three larger files, lowered and shifted right -->
+  <rect x="125" y="170" width="200" height="260" rx="12" fill="#d6e2ff"/>
+  <rect x="155" y="150" width="200" height="260" rx="12" fill="#c4d6ff"/>
+  <rect x="185" y="130" width="200" height="260" rx="12" fill="#b1caff"/>
+
+  <!-- Shield centered on the middle file -->
+  <g transform="translate(256, 250)">
+    <path 
+      d="M0 -80 
+         L-70 -40 
+         V40 
+         C-70 100 -10 140 0 150 
+         C10 140 70 100 70 40 
+         V-40 
+         Z"
+      fill="#0044aa"
+      stroke="#003377"
+      stroke-width="4"
+    />
+
+    <!-- Shield text -->
+    <text x="0" y="-10"
+          font-family="Arial, sans-serif"
+          font-size="32"
+          font-weight="700"
+          fill="white"
+          text-anchor="middle">
+      Offline
+    </text>
+
+    <text x="0" y="30"
+          font-family="Arial, sans-serif"
+          font-size="32"
+          font-weight="700"
+          fill="white"
+          text-anchor="middle">
+      PDF
+    </text>
+
+    <text x="0" y="70"
+          font-family="Arial, sans-serif"
+          font-size="32"
+          font-weight="700"
+          fill="white"
+          text-anchor="middle">
+      Studio
+    </text>
+  </g>
+
+</svg>
