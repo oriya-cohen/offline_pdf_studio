@@ -5,6 +5,13 @@
 <h1 align="center">Offline PDF Studio</h1>
 <p align="center"><strong>Professional PDF Toolkit — 100% Client-Side. No uploads. No tracking. No servers.</strong></p>
 
+<!-- SCREENSHOT -->
+<p align="center">
+  <img src="assets/screen-shot/screenshot.jpg" width="720" alt="Offline PDF Studio Screenshot">
+  <br>
+  <em>All features run entirely on your device — no cloud, ever.</em>
+</p>
+
 <p align="center">
   <img src="https://img.shields.io/badge/Privacy-First-brightgreen?style=for-the-badge">
   <img src="https://img.shields.io/badge/Offline-Ready-blue?style=for-the-badge">
@@ -91,11 +98,12 @@ Ideal for reviewing print proofs, legal amendments, or version changes.
 
 ## 🚀 Running Locally
 
-You can simply download the project and open `index.html`:
+Just download the project and open `index.html`:
 
 ```bash
 git clone https://github.com/oriya-cohen/offline-pdf-studio
 cd offline-pdf-studio
 python -m http.server 8000
-on Chrome/Firefox/choose-your-favorite-browser  "http://localhost:8000/" 
-you are good to go!
+
+# Then open: 
+# http://localhost:8000/
