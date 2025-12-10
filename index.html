@@ -19,205 +19,219 @@
 <!-- JSZip (offline: downloaded jszip.min.js to assets/) -->
 <script src="js/vendor/jszip.min.js"></script>
 </head>
+
+
 <body>
 
 <header id="appHeader">
-  <h1>Offline PDF Studio</h1>
-  <span class="sub">100% client-side • No data leaves your device</span>
+  <button id="mobileMenuBtn" class="mobileOnly">
+    <i data-feather="menu"></i>
+  </button>
+
+  <div class="headerText">
+    <h1>Offline PDF Studio</h1>
+    <span class="sub">100% client-side • No data leaves your device</span>
+  </div>
 </header>
 
-<div id="layout">
-  <aside id="sidebar">
-    <nav>
-      <button data-panel="mergePanel"><i data-feather="layers"></i> Merge PDFs</button>
-      <button data-panel="mixedMergePanel"><i data-feather="package"></i> Mixed Merge</button>
-      <button data-panel="splitPanel"><i data-feather="scissors"></i> Split</button>
-      <button data-panel="imgToPdfPanel"><i data-feather="image"></i> Images → PDF</button>
-      <button data-panel="pdfToImgPanel"><i data-feather="file"></i> PDF → Images</button>
-      <button data-panel="watermarkPanel"><i data-feather="droplet"></i> Watermark</button>
-      <button data-panel="rotatePanel"><i data-feather="rotate-cw"></i> Rotate</button>
-      <button data-panel="compressPanel"><i data-feather="minimize-2"></i> Compress</button>
-      <button data-panel="reorderPanel"><i data-feather="grid"></i> Reorder</button>
-      <button data-panel="metaPanel"><i data-feather="info"></i> Metadata</button>
-      <button data-panel="comparePanel"><i data-feather="shuffle"></i> Compare</button>
-    </nav>
-  </aside>
 
-<main id="content">
-  <div id="statusBar"></div>
-
-  <!-- Merge PDFs -->
-  <section class="panel" id="mergePanel" style="display:none;">
-    <h2>Merge PDFs</h2>
-    <input type="file" id="mergeFiles" multiple accept="application/pdf">
-    <button id="mergeBtn">Merge</button>
-  </section>
-
-  <!-- Mixed Merge -->
-  <section class="panel" id="mixedMergePanel" style="display:none;">
-    <h2>Mixed Merge</h2>
-    <p>Select PDFs and images to merge in custom order.</p>
-    <input type="file" id="mixedMergeFiles" multiple accept=".pdf,image/*">
-    <button id="mixedMergeBtn">Start Mixed Merge</button>
-  </section>
-
-  <!-- Split PDF -->
-  <section class="panel" id="splitPanel" style="display:none;">
-    <h2>Split PDF</h2>
-    <input type="file" id="splitFile" accept="application/pdf">
-    <input type="text" id="splitRanges" placeholder="e.g. 1-3,5,7-9">
-    <button id="splitBtn">Split</button>
-  </section>
-
-  <!-- Images to PDF -->
-  <section class="panel" id="imgToPdfPanel" style="display:none;">
-    <h2>Images → PDF</h2>
-    <input type="file" id="imgToPdfFiles" accept="image/*" multiple>
-    <button id="imgToPdfBtn">Convert to PDF</button>
-  </section>
-
-  <!-- PDF to Images -->
-  <section class="panel" id="pdfToImgPanel" style="display:none;">
-    <h2>PDF → Images</h2>
-    <input type="file" id="pdfToImgFile" accept="application/pdf">
-    <button id="pdfToImgBtn">Convert to Images</button>
-    <select id="pdfToImgFormat">
-      <option value="png">PNG</option>
-      <option value="jpeg">JPEG</option>
-      <option value="webp">WEBP</option>
-    </select>
-  </section>
-
-  <!-- Watermark -->
-  <section class="panel" id="watermarkPanel" style="display:none;">
-    <h2>Watermark</h2>
-    <input type="file" id="watermarkFile" accept="application/pdf">
-    <input type="text" id="watermarkText" placeholder="Watermark text">
-    <button id="watermarkBtn">Apply Watermark</button>
-  </section>
-
-<!-- Rotate -->
-<section class="panel" id="rotatePanel" style="display:none;">
-  <h2>Rotate PDF</h2>
-  <input type="file" id="rotateFile" accept="application/pdf">
-
-  <select id="rotateAngle">
-    <option value="90">90°</option>
-    <option value="180">180°</option>
-    <option value="270">270°</option>
-  </select>
-
-  <input type="text" id="rotateRanges" placeholder="-1 for all, or 1-3,5">
-
-  <button id="rotateBtn">Rotate</button>
-</section>
-
-
-	<!-- Compress PDF Panel -->
-	<section class="panel" id="compressPanel" style="display:none;">
-	  <h2>Compress PDF</h2>
-	  <input type="file" id="compressFile" accept="application/pdf">
-
-	  <!-- Compression Mode Toggle -->
-	  <label>
-		<input type="radio" name="compressMode" value="lossless" checked>
-		Lossless
-	  </label>
-	  <label>
-		<input type="radio" name="compressMode" value="lossy">
-		Lossy
-	  </label>
-
-	  <!-- LOSSY OPTIONS -->
-	  <div id="lossyOptions" style="display:none;">
-		<label>Image Quality</label>
-		<input type="range" id="imageQualitySlider" min="0.1" max="1" step="0.05" value="0.7">
-		<input type="number" id="imageQualityNumber" min="0.1" max="1" step="0.05" value="0.7">
-	  </div>
-
-	  <button id="compressBtn">Compress</button>
-	</section>
-
-
-  <!-- Reorder Pages -->
-  <!--<section class="panel" id="reorderPanel" style="display:none;">-->
-  <!--  <h2>Reorder Pages</h2>-->
-  <!--  <input type="file" id="reorderFile" accept="application/pdf">-->
-  <!--  <input type="text" id="reorderOrder" placeholder="New page order, e.g. 3,1,2">-->
-  <!--  <button id="reorderBtn">Reorder</button>-->
-  <!--</section>-->
-  
-  <section class="panel" id="reorderPanel" style="display:none;">
-    <h2>Reorder Pages</h2>
-    <input type="file" id="reorderFile" accept="application/pdf">
-    <button id="reorderBtn">Save Reordered PDF</button>
-
-    <!-- Add this div -->
-    <div id="reorderPreview" class="pageContainer"></div>
-  </section>
-
-  <!-- Metadata -->
-  <section class="panel" id="metaPanel" style="display:none;">
-    <h2>Metadata</h2>
-    <input type="file" id="metaFile" accept="application/pdf">
-    <button id="metaLoadBtn">Load Metadata</button>
-  
-    <div id="metaFields" style="display:none;">
-      <table id="metaTable">
-        <thead>
-          <tr>
-            <th>Field Name</th>
-            <th>Value</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Rows will be added dynamically -->
-        </tbody>
-      </table>
-      <button id="metaSaveBtn">Save Metadata</button>
-    </div>
-  </section>
-
-
-
-  <!-- Compare PDFs -->
-  <section class="panel" id="comparePanel" style="display:none;">
-    <h2>Compare PDFs</h2>
-    <p>Select two PDFs to see side-by-side visual comparison.</p>
-  
-    <!-- File inputs -->
-    <div class="compareInputs">
-      <label>
-        PDF A:
-        <input type="file" id="compareFileA" accept="application/pdf">
-      </label>
-      <label>
-        PDF B:
-        <input type="file" id="compareFileB" accept="application/pdf">
-      </label>
-      <button id="compareBtn">Compare PDFs</button>
-    </div>
-  
-    <!-- Summary -->
-    <div id="compareSummary" class="compareSummary">
-      Total Pages: <span id="totalPages">0</span> |
-      Differences: <span id="diffCount">0</span> |
-      Missing Pages: <span id="missingCount">0</span>
-    </div>
-  
-    <!-- Results container -->
-    <div id="compareResult" class="compareResult"></div>
-  </section>
-
-</main>
-
+<div id="appWrapper">
+  <div id="layout">
+    <aside id="sidebar">
+      <nav>
+        <button data-panel="mergePanel"><i data-feather="layers"></i> Merge PDFs</button>
+        <button data-panel="mixedMergePanel"><i data-feather="package"></i> Mixed Merge</button>
+        <button data-panel="splitPanel"><i data-feather="scissors"></i> Split</button>
+        <button data-panel="imgToPdfPanel"><i data-feather="image"></i> Images → PDF</button>
+        <button data-panel="pdfToImgPanel"><i data-feather="file"></i> PDF → Images</button>
+        <button data-panel="watermarkPanel"><i data-feather="droplet"></i> Watermark</button>
+        <button data-panel="rotatePanel"><i data-feather="rotate-cw"></i> Rotate</button>
+        <button data-panel="compressPanel"><i data-feather="minimize-2"></i> Compress</button>
+        <button data-panel="reorderPanel"><i data-feather="grid"></i> Reorder</button>
+        <button data-panel="metaPanel"><i data-feather="info"></i> Metadata</button>
+        <button data-panel="comparePanel"><i data-feather="shuffle"></i> Compare</button>
+      </nav>
+    </aside>
+	
+    <main id="content">
+      <div id="statusBar"></div>
+    
+      <!-- Merge PDFs -->
+      <section class="panel" id="mergePanel" style="display:none;">
+        <h2>Merge PDFs</h2>
+        <input type="file" id="mergeFiles" multiple accept="application/pdf">
+        <button id="mergeBtn">Merge</button>
+      </section>
+    
+      <!-- Mixed Merge -->
+      <section class="panel" id="mixedMergePanel" style="display:none;">
+        <h2>Mixed Merge</h2>
+        <p>Select PDFs and images to merge in custom order.</p>
+        <input type="file" id="mixedMergeFiles" multiple accept=".pdf,image/*">
+        <button id="mixedMergeBtn">Start Mixed Merge</button>
+      </section>
+    
+      <!-- Split PDF -->
+      <section class="panel" id="splitPanel" style="display:none;">
+        <h2>Split PDF</h2>
+        <input type="file" id="splitFile" accept="application/pdf">
+        <input type="text" id="splitRanges" placeholder="e.g. 1-3,5,7-9">
+        <button id="splitBtn">Split</button>
+      </section>
+    
+      <!-- Images to PDF -->
+      <section class="panel" id="imgToPdfPanel" style="display:none;">
+        <h2>Images → PDF</h2>
+        <input type="file" id="imgToPdfFiles" accept="image/*" multiple>
+        <button id="imgToPdfBtn">Convert to PDF</button>
+      </section>
+    
+      <!-- PDF to Images -->
+      <section class="panel" id="pdfToImgPanel" style="display:none;">
+        <h2>PDF → Images</h2>
+        <input type="file" id="pdfToImgFile" accept="application/pdf">
+        <button id="pdfToImgBtn">Convert to Images</button>
+        <select id="pdfToImgFormat">
+          <option value="png">PNG</option>
+          <option value="jpeg">JPEG</option>
+          <option value="webp">WEBP</option>
+        </select>
+      </section>
+    
+      <!-- Watermark -->
+      <section class="panel" id="watermarkPanel" style="display:none;">
+        <h2>Watermark</h2>
+        <input type="file" id="watermarkFile" accept="application/pdf">
+        <input type="text" id="watermarkText" placeholder="Watermark text">
+        <button id="watermarkBtn">Apply Watermark</button>
+      </section>
+    
+    <!-- Rotate -->
+    <section class="panel" id="rotatePanel" style="display:none;">
+      <h2>Rotate PDF</h2>
+      <input type="file" id="rotateFile" accept="application/pdf">
+    
+      <select id="rotateAngle">
+        <option value="90">90°</option>
+        <option value="180">180°</option>
+        <option value="270">270°</option>
+      </select>
+    
+      <input type="text" id="rotateRanges" placeholder="-1 for all, or 1-3,5">
+    
+      <button id="rotateBtn">Rotate</button>
+    </section>
+    
+    
+    	<!-- Compress PDF Panel -->
+    	<section class="panel" id="compressPanel" style="display:none;">
+    	  <h2>Compress PDF</h2>
+    	  <input type="file" id="compressFile" accept="application/pdf">
+    
+    	  <!-- Compression Mode Toggle -->
+    	  <label>
+    		<input type="radio" name="compressMode" value="lossless" checked>
+    		Lossless
+    	  </label>
+    	  <label>
+    		<input type="radio" name="compressMode" value="lossy">
+    		Lossy
+    	  </label>
+    
+    	  <!-- LOSSY OPTIONS -->
+    	  <div id="lossyOptions" style="display:none;">
+    		<label>Image Quality</label>
+    		<input type="range" id="imageQualitySlider" min="0.1" max="1" step="0.05" value="0.7">
+    		<input type="number" id="imageQualityNumber" min="0.1" max="1" step="0.05" value="0.7">
+    	  </div>
+    
+    	  <button id="compressBtn">Compress</button>
+    	</section>
+    
+    
+      <!-- Reorder Pages -->
+      <!--<section class="panel" id="reorderPanel" style="display:none;">-->
+      <!--  <h2>Reorder Pages</h2>-->
+      <!--  <input type="file" id="reorderFile" accept="application/pdf">-->
+      <!--  <input type="text" id="reorderOrder" placeholder="New page order, e.g. 3,1,2">-->
+      <!--  <button id="reorderBtn">Reorder</button>-->
+      <!--</section>-->
+      
+      <section class="panel" id="reorderPanel" style="display:none;">
+        <h2>Reorder Pages</h2>
+        <input type="file" id="reorderFile" accept="application/pdf">
+        <button id="reorderBtn">Save Reordered PDF</button>
+    
+        <!-- Add this div -->
+        <div id="reorderPreview" class="pageContainer"></div>
+      </section>
+    
+      <!-- Metadata -->
+      <section class="panel" id="metaPanel" style="display:none;">
+        <h2>Metadata</h2>
+        <input type="file" id="metaFile" accept="application/pdf">
+        <button id="metaLoadBtn">Load Metadata</button>
+      
+        <div id="metaFields" style="display:none;">
+          <table id="metaTable">
+            <thead>
+              <tr>
+                <th>Field Name</th>
+                <th>Value</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Rows will be added dynamically -->
+            </tbody>
+          </table>
+          <button id="metaSaveBtn">Save Metadata</button>
+        </div>
+      </section>
+    
+    
+    
+      <!-- Compare PDFs -->
+      <section class="panel" id="comparePanel" style="display:none;">
+        <h2>Compare PDFs</h2>
+        <p>Select two PDFs to see side-by-side visual comparison.</p>
+      
+        <!-- File inputs -->
+        <div class="compareInputs">
+          <label>
+            PDF A:
+            <input type="file" id="compareFileA" accept="application/pdf">
+          </label>
+          <label>
+            PDF B:
+            <input type="file" id="compareFileB" accept="application/pdf">
+          </label>
+          <button id="compareBtn">Compare PDFs</button>
+        </div>
+      
+        <!-- Summary -->
+        <div id="compareSummary" class="compareSummary">
+          Total Pages: <span id="totalPages">0</span> |
+          Differences: <span id="diffCount">0</span> |
+          Missing Pages: <span id="missingCount">0</span>
+        </div>
+      
+        <!-- Results container -->
+        <div id="compareResult" class="compareResult"></div>
+      </section>
+    
+    </main>
+  </div>
 </div>
 
-<!-- Main JS module -->
-<script type="module" src="js/main.js"></script>
-<!-- Activate Feather icons -->
-<script>feather.replace()</script>
+<!-- FIXED WORKING MOBILE MENU -->
+<script>
+  document.getElementById("mobileMenuBtn").addEventListener("click", () => {
+    document.getElementById("sidebar").classList.toggle("open");
+  });
+</script>
 
+<script type="module" src="js/main.js"></script>
+<script>feather.replace()</script>
 </body>
 </html>
