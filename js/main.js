@@ -15,8 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   import("./tools/reorder.js");
   import("./tools/metadata.js");
   import("./tools/compare.js");
-  //import("./tools/annotate.js").then(m => m.initAnnotate());
-  import("./tools/annotate/index.js").then(m => m.initAnnotate());
 
   // Panel switching
   document.querySelectorAll("#sidebar button").forEach(btn => {
@@ -36,6 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Show default panel
-  const first = document.getElementById("annotatePanel");
+  const first = document.getElementById("mergePanel");
   if (first) first.style.display = "block";
 });

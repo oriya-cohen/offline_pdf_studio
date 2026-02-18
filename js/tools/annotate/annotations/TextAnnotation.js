@@ -1,7 +1,7 @@
 // js/tools/annotate/annotations/TextAnnotation.js
 
 import { BaseAnnotation } from './BaseAnnotation.js';
-import { ANNOTATION_TYPES, DEFAULTS, COLORS, FONTS } from '../utils/constants.js';
+import { ANNOTATION_TYPES, DEFAULTS, COLORS } from '../utils/constants.js';
 
 /**
  * Text box annotation with rotation and scale handles
@@ -12,7 +12,6 @@ export class TextAnnotation extends BaseAnnotation {
     this.text = data.text || 'Text';
     this.fontSize = data.fontSize || DEFAULTS.TEXT_SIZE;
     this.color = data.color || DEFAULTS.TEXT_COLOR;
-    this.font = data.font || DEFAULTS.TEXT_FONT;
     this.rotation = data.rotation || 0; // in radians
     this.scale = data.scale || 1;
     this.width = data.width || 100;
@@ -188,7 +187,6 @@ export class TextAnnotation extends BaseAnnotation {
       text: this.text,
       fontSize: this.fontSize,
       color: this.color,
-      font: this.font,
       rotation: this.rotation,
       scale: this.scale,
       width: this.width,
