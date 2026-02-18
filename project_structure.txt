@@ -9,9 +9,11 @@
         bundle-pdf-lib.mjs
     js/
         main.js
+        ui.js
         lib/
             utils.js
         tools/
+            annotate.js
             compare.js
             compress.js
             images-to-pdf.js

@@ -6,31 +6,55 @@
   font-family: Arial, sans-serif;
 }
 
+:root {
+  --bg: #f5f5f5;
+  --text: #333;
+  --panel-bg: #fff;
+  --header-bg: #007bff;
+  --header-text: white;
+  --sidebar-bg: white;
+  --sidebar-border: #ddd;
+  --button-bg: #007bff;
+  --button-hover: #0056b3;
+}
+
+body[data-theme="dark"] {
+  --bg: #1e1e1e;
+  --text: #e5e5e5;
+  --panel-bg: #2a2a2a;
+  --header-bg: #0d6efd;
+  --header-text: #ffffff;
+  --sidebar-bg: #242424;
+  --sidebar-border: #444;
+  --button-bg: #0d6efd;
+  --button-hover: #0a58ca;
+}
+
 html, body {
   height: 100%;
-  background: #f5f5f5;
-  color: #333;
+  background: var(--bg);
+  color: var(--text);
 }
 
 /* BUTTON BASE */
 button {
   cursor: pointer;
   border: none;
-  background: #007bff;
+  background: var(--button-bg);
   color: white;
   padding: 8px 16px;
   border-radius: 4px;
   transition: background .2s;
 }
 button:hover {
-  background: #0056b3;
+  background: var(--button-hover);
 }
 
 /* HEADER */
 #appHeader {
   height: 60px;
-  background: #007bff;
-  color: white;
+  background: var(--header-bg);
+  color: var(--header-text);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -69,16 +93,35 @@ button:hover {
   height: calc(100vh - 60px);
 }
 
+/* Desktop collapse button */
+.desktopOnly {
+  display: block;
+}
+
+/* Collapsed mode */
+body.collapsed-sidebar #sidebar {
+  width: 60px;
+}
+
+body.collapsed-sidebar #sidebar button span {
+  display: none;
+}
+
+body.collapsed-sidebar #content {
+  margin-left: 60px;
+}
+
 /* SIDEBAR DESKTOP */
 #sidebar {
   width: 230px;
-  background: white;
-  border-right: 1px solid #ddd;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
   display: flex;
   flex-direction: column;
-  transition: 0.25s ease;
+  transition: width 0.3s ease;
   padding-top: 10px;
   z-index: 150;
+  overflow: hidden;
 }
 
 #sidebar nav button {
@@ -86,17 +129,43 @@ button:hover {
   align-items: center;
   gap: 12px;
   padding: 12px 18px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--sidebar-border);
   background: none;
-  color: #333;
+  color: var(--text);
   font-size: 14px;
+  transition: padding 0.3s ease;
 }
+
+#sidebar nav button span {
+  transition: opacity 0.25s ease, width 0.25s ease;
+}
+
 #sidebar nav button:hover {
+  background: rgba(180,180,180,0.08);
+}
+body[data-theme="light"] #sidebar nav button:hover {
   background: #f0f0f0;
 }
+
 #sidebar button i {
   width: 20px;
   height: 20px;
+}
+
+/* COLLAPSED SIDEBAR */
+body.collapsed-sidebar #sidebar {
+  width: 60px;
+}
+
+body.collapsed-sidebar #sidebar nav button {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+body.collapsed-sidebar #sidebar nav button span {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
 }
 
 /* CONTENT */
@@ -104,11 +173,13 @@ button:hover {
   flex: 1;
   overflow-y: auto;
   padding: 20px;
+  transition: margin-left 0.3s ease;
 }
 
 /* STATUS BAR */
 #statusBar {
-  background: #fffae6;
+  background: var(--panel-bg);
+  color: var(--text);
   border-bottom: 1px solid #ddd;
   padding: 5px 10px;
   margin-bottom: 10px;
@@ -117,7 +188,7 @@ button:hover {
 
 /* PANELS */
 .panel {
-  background: white;
+  background: var(--panel-bg);
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
@@ -132,11 +203,46 @@ input[type="file"], input[type="text"], select {
   border-radius: 4px;
 }
 
+#pdfCanvas {
+  width: auto !important;
+  height: auto !important;
+}
+
+/* PDF Viewer Wrapper - Responsive */
+#pdfCanvasWrapper {
+  width: 100%;
+  max-width: 100%;
+  height: 60vh; /* adjusts to viewport height */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: var(--panel-bg);
+  box-sizing: border-box;
+  position: relative;
+}
+#pdfCanvasWrapper canvas {
+  width: 100%; /* scale canvas to container width */
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+}
+
 /* -----------------------------
    MOBILE RESPONSIVE
 ----------------------------- */
 @media (max-width: 900px) {
+  .desktopOnly {
+    display: none !important;
+  }
 
+  body.collapsed-sidebar #sidebar {
+    width: 230px; /* mobile keeps full width */
+  }
+
+  body.collapsed-sidebar #content {
+    margin-left: 0;
+  }
+  
   /* Show menu button */
   .mobileOnly,
   #mobileMenuBtn {
@@ -156,8 +262,8 @@ input[type="file"], input[type="text"], select {
     width: 230px;
     height: calc(100vh - 60px);
     transform: translateX(-100%);
-    background: white;
-    border-right: 1px solid #ccc;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--sidebar-border);
   }
 
   #sidebar.open {
@@ -181,4 +287,5 @@ input[type="file"], input[type="text"], select {
   .headerText .sub { font-size: 10px; }
   button { padding: 7px 12px; font-size: 13px; }
   .panel { padding: 12px; }
+  #pdfCanvasWrapper { height: 50vh; padding: 5px; }
 }

@@ -1,0 +1,3 @@
+we need to update the annotation: 
+1. make sure the scribble and annotate works 
+2. make sure all the main languages are supported
