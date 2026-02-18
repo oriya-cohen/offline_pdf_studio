@@ -1,0 +1,5 @@
+cd to/your/dir
+python -m http.server 8000
+
+in browser
+http://localhost:8000/index.html

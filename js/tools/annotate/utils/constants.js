@@ -15,18 +15,10 @@ export const ANNOTATION_TYPES = {
   SHAPE: 'shape'
 };
 
-export const FONTS = {
-  NOTO_SANS: 'NotoSans',
-  NOTO_SANS_ARABIC: 'NotoSansArabic',
-  NOTO_SERIF_HEBREW: 'NotoSerifHebrew',
-  STANDARD: 'Standard'
-};
-
 export const DEFAULTS = {
   SCALE: 1.5,
   TEXT_SIZE: 16,
   TEXT_COLOR: '#000000',
-  TEXT_FONT: FONTS.NOTO_SANS,
   SCRIBBLE_WIDTH: 2,
   SCRIBBLE_COLOR: '#000000',
   HANDLE_SIZE: 16,
